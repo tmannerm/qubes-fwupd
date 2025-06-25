@@ -34,7 +34,11 @@ fwupd wrapper for Qubes OS
 Summary: fwupd wrapper for Qubes OS - VM scripts
 Requires:   gcab
 Requires:   fwupd >= 1.5.7
+%if 0%{?is_opensuse}
+Requires:   libjcat1 >= 0.1.6
+%else
 Requires:   libjcat >= 0.1.6
+%endif
 Requires:   python3-packaging
 
 %description vm
@@ -65,8 +69,8 @@ cd contrib/qubes
 install -d $RPM_BUILD_ROOT/usr/share/qubes-fwupd/src
 install -t $RPM_BUILD_ROOT/usr/share/qubes-fwupd/src src/*.py
 cp -r test $RPM_BUILD_ROOT/usr/share/qubes-fwupd/test
-install -d $RPM_BUILD_ROOT/usr/libexec/qubes-fwupd
-install -t $RPM_BUILD_ROOT/usr/libexec/qubes-fwupd src/vms/*.py
+install -d $RPM_BUILD_ROOT%{_libexecdir}/qubes-fwupd
+install -t $RPM_BUILD_ROOT%{_libexecdir}/qubes-fwupd src/vms/*.py
 install -d $RPM_BUILD_ROOT/usr/bin
 ln -s ../share/qubes-fwupd/src/qubes_fwupdmgr.py \
     $RPM_BUILD_ROOT/usr/bin/qubes-fwupdmgr
